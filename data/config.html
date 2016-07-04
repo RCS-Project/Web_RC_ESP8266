@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>ESP WiFi Configuration Server</title> 
+        <meta charset= "UTF-8" > 
+        <meta name= "viewport" content= "width=device-width, initial-scale=1.0" > 
+        <style type= "text/css" > 
+            form{ 
+                text-align: center; 
+                margin: auto; 
+                align-content: center; 
+            } 
+            table{ 
+                margin: auto; 
+                align-content: center; 
+                text-align: center; 
+                border-style: solid; 
+                border-width: 1px; 
+                background-color: #00bcd4; 
+                color: snow; 
+            } 
+            #header{ 
+                font-size: 200%; 
+                font-weight: bold; 
+            } 
+            #btn{ 
+                background-color: snow; 
+                border-style: solid; 
+                border-width: 1px; 
+            } 
+        </style> 
+        <!-- dynamically generated script -->
+        <script type="text/javascript" src="host.js"></script>
+        <script type="text/javascript" src="wifilist.js"></script>
+        <script type= "text/javascript" >
+            function init(){
+				// set host
+                document.getElementById("hst").value = host;
+				
+                // add options to wifilist
+                var wifiList = document.getElementById("wifilist");
+				for (var i = 0; i < Options.length; i++){
+					var optnode = document.createElement("option");
+					optnode.value = Options[i].value;
+					wifiList.appendChild(optnode);
+				}
+            }
+            
+            function setPassField(value) {
+                var passField = document.getElementById("pass");
+                if (value.substring(0, 6) === "Open : ") {
+                    passField.disabled = true;
+                } else {
+                    passField.disabled = false;
+                }
+            }
+        </script> 
+    </head> 
+    <body onload="init()"> 
+        <div> 
+            <form action= "updateconfig" method= "post" > 
+                <table> 
+                    <tr> 
+                        <td colspan= "2" ><span id= "header" >WiFi Configuration</span></td> 
+                    </tr> 
+                    <tr> 
+                        <td>SSID :</td> 
+                        <td><input name= "ssid" list= "wifilist" >
+                            <datalist id= "wifilist" > 
+                                <option value= "-none-" >
+                            </datalist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password :</td>
+                        <td><input type="password" name="pass" id="pass"></td>
+                    </tr>
+                    <tr>
+                        <td>Host :</td>
+                        <td><input type="text" name="host" id="hst"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><br><input id="btn" type="submit" value="Connect"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>
